@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tapas.Client", "Tapas\Tapas.Client.csproj", "{9F4C38D8-3193-4482-B30C-8116A92C102D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ADC24F4A-6A7B-4B88-B395-6F9441D4B5CE}
+	EndGlobalSection
+EndGlobal
