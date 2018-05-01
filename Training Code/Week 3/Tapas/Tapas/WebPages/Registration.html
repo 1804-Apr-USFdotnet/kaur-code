@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <!--<link href="Styles.css" rel="stylesheet" />-->
+</head>
+<body>
+    <form name="userLogin" method="get" action="CarTypes.html">
+        <fieldset>
+            <legend>Enter your details:</legend>
+            <!--<label for="firstName">First name:</label>-->
+            <input id="firstName" type="text" required="required" autofocus="autofocus" placeholder="your firstname here" title="First Name of User " />
+            <span style="color:red">*</span><br />
+        </fieldset>
+        <fieldset>
+            <legend>Enter the othe details:</legend>
+            <!--<label for="Email">email address:</label>-->
+            <input id="Email" type="email" required="required" />
+            <span style="color:red">*</span><br />
+            UG percentage:   <input id="percentage" type="number" min="0" max="100" required="required" /><br />
+            <label for="orderRef">reference Number </label>
+            <input id="orderRef" name="orderReference" type="text" pattern="[0-9]{2}[A-Za-z]{3}" title="2 digits and 3 uppercase letters" placeholder="Enter a pattern with 2 digits and 3 letters in uppercase" /><span style="color:red">*</span><br />
+        </fieldset>
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>
+
+
