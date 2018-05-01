@@ -75,8 +75,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\FlexBoxStyleSheet.css" />
     <Content Include="Web.config" />
+    <Content Include="WebPages\CarTypes.html" />
+    <Content Include="WebPages\FlexBoxHtmlPage.html" />
     <Content Include="WebPages\Home.html" />
+    <Content Include="WebPages\Registration.html" />
+    <Content Include="WebPages\Sectioning.html" />
+    <Content Include="WebPages\Semantics.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

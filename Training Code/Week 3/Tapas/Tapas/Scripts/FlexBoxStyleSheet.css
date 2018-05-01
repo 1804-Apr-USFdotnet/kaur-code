@@ -1,0 +1,79 @@
+﻿@import url('FlexBoxStyleSheet.css');
+@import url('FlexBoxStyleSheet.css');
+body {
+}
+.box1{background-color:red;
+ /*outline-width: 2px;
+ outline-style: solid;
+ outline-color: green;
+ outline-offset: 5px;*/ 
+border-radius: 5px/10px;
+overflow:visible;
+
+}
+
+.box2 {
+    background-color: yellow;
+    background-image: url('https://mdn.mozillademos.org/files/11947/ff-logo.png');
+    background-size: 140px;
+    background-position: center;
+    background-color: black;
+    background-clip: border-box;
+}
+.box3 {
+    background-color: green;
+    background-size: 140px;
+    background-position: center;
+    background-image: url('https://mdn.mozillademos.org/files/11947/ff-logo.png');
+    background-color: black;
+    background-clip: padding-box;
+}
+.box4 {
+    background-color: violet;
+    background-size: 140px;
+    background-position: center;
+    background-image: url('https://mdn.mozillademos.org/files/11947/ff-logo.png');
+    background-color: black;
+    background-clip: content-box;
+}
+.box5{background-color:pink; }
+.box6{background-color:orange; }
+.box7{background-color:WindowFrame; }
+.box8{background-color:maroon; }
+.box9{background-color:aquamarine; }
+
+/*.wrapper
+{
+ display:flex;
+ 
+}*/
+p {
+    padding: 1em;
+    border: 1px solid black;
+}
+
+span {
+    border: 1px solid green;
+    /* That makes the box visible, regardless of its type */
+    background-color: yellow;
+}
+
+.inline {
+    display: inline;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+.box
+{
+  padding:10px;
+  margin:10px;
+  border:2px,solid,black;
+ width:200px;
+ height:200px;
+}
