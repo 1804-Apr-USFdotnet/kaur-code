@@ -1,0 +1,19 @@
+Create a project=> Class Lib (DataLayer)
+Add Models	
+	Provide DataAnnotations and DataAnnotation.Schema
+	Add Foreign Key References
+	
+Install Entity Framework
+Add DbContext 
+Add Connection String in .config  with provider name
+Pass connection String name in the ctor of DbContext
+Call DbContext with to create a Db
+
+Migration in Code First- With PMC
+1. run- Enable-Migrations -ContextTypeName TapasContext -ProjectName Tapas.DataLayer
+2. 	Make changes to the model 
+3. run- Add-Migration -ProjectName Tapas.DataLayer ChangeReviewsTable
+4. run- Update-Database -ProjectName Tapas.DataLayer -verbose
+5. Check the Db
+6. Repeat from 2 to 5 if required
+
