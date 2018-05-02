@@ -1,0 +1,28 @@
+﻿@* Binding View with the Model=> Strongly Typed View *@
+@model IEnumerable<Tapas.Web.Models.Restaurant>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table style="border:2px solid">
+            <tbody>
+                <th>Name </th>
+                <th>Address </th>
+                @foreach (var rest in Model)
+    {
+            <tr style="border:2px solid black">
+                <td>@rest.Name</td>
+                <td>@rest.Address</td>
+            </tr>
+}
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

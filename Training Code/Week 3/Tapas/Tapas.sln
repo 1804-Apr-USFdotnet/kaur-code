@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tapas.Client", "Tapas\Tapas.Client.csproj", "{9F4C38D8-3193-4482-B30C-8116A92C102D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tapas.Web", "Tapas.Web\Tapas.Web.csproj", "{724CEAFF-8BE5-4230-A197-E41DB9B6B29B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tapas.Web.Tests", "Tapas.Web.Tests\Tapas.Web.Tests.csproj", "{2AB3C258-928A-421B-99E7-9D61EFC22AB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F4C38D8-3193-4482-B30C-8116A92C102D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724CEAFF-8BE5-4230-A197-E41DB9B6B29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724CEAFF-8BE5-4230-A197-E41DB9B6B29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724CEAFF-8BE5-4230-A197-E41DB9B6B29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724CEAFF-8BE5-4230-A197-E41DB9B6B29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB3C258-928A-421B-99E7-9D61EFC22AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB3C258-928A-421B-99E7-9D61EFC22AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB3C258-928A-421B-99E7-9D61EFC22AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB3C258-928A-421B-99E7-9D61EFC22AB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
