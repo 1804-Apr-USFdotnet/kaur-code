@@ -9,18 +9,22 @@
 </head>
 <body>
     <div>
-        <table style="border:2px solid">
+        <table style="border:2px solid; border-collapse:collapse">
+            <thead>
+                <tr>
+                    <th>Name </th>
+                    <th>Address </th>
+                </tr>
+            </thead>
             <tbody>
-                <th>Name </th>
-                <th>Address </th>
                 @foreach (var rest in Model)
-    {
-            <tr style="border:2px solid black">
-                <td>@rest.Name</td>
-                <td>@rest.Address</td>
-            </tr>
-}
-
+                {
+                    <tr style="border:2px solid black">
+                        <td>@rest.Name</td>
+                        <td>@rest.Address</td>
+                        <td>@Html.ActionLink("Details", "Details", new { id = rest.Id })</td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

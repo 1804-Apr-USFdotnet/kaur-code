@@ -12,6 +12,7 @@ namespace Tapas.Web.Controllers
         Restaurant restaurant = new Restaurant();
 
         // GET: Restaurants
+        [HttpGet]// default type of Action
         public ActionResult Index()
         {
             return View(restaurant.GetRestaurants());
@@ -31,12 +32,11 @@ namespace Tapas.Web.Controllers
 
         // POST: Restaurants/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Restaurant restaurant)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                restaurant.AddRestaurant(restaurant);
                 return RedirectToAction("Index");
             }
             catch
@@ -44,6 +44,19 @@ namespace Tapas.Web.Controllers
                 return View();
             }
         }
+        /*public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                var name = collection["name"];
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }*/
 
         // GET: Restaurants/Edit/5
         public ActionResult Edit(int id)
