@@ -37,10 +37,12 @@ namespace Tapas.Web.Controllers
             try
             {
                 restaurant.AddRestaurant(restaurant);
+                // log that it worked
                 return RedirectToAction("Index");
             }
             catch
             {
+                // log some problem
                 return View();
             }
         }
