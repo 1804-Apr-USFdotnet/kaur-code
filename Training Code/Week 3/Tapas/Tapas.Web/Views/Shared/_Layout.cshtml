@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <h3>Calling Layout</h3>
+        <table>
+            <thead>
+
+                @Html.ActionLink("Home", "Index", "Home")|
+
+                @Html.ActionLink("AboutUs", "AboutUs", "Home")|
+
+                @Html.ActionLink("Contact Us", "ContactUs", "Home")|
+
+            </thead>
+        </table>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        @RenderSection("DetailsPage",false)        
+        &copy;USF-Revature Tampa
+    </footer>
+</body>
+</html>

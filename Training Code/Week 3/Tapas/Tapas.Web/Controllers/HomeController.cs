@@ -31,6 +31,14 @@ namespace Tapas.Web.Controllers
             TempData["Training"] = ".Net Full Stack";
             return View();
         }
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
         public ActionResult TestIndex()
         {
             TempData.Keep("Training");

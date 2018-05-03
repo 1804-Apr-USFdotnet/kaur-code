@@ -110,6 +110,11 @@
     <Content Include="Views\Restaurants\Index.cshtml" />
     <Content Include="Views\Restaurants\Details.cshtml" />
     <Content Include="Views\Restaurants\Create.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
