@@ -61,6 +61,8 @@ namespace Tapas.Web.Models
             Debug.Write("Added 1 Restaurant");
         }
 
+
+        // comment
         public static Restaurant ToWeb(DataLayer.Models.Restaurant dataRestaurant)
         {
             var webRestaurant = new Restaurant()
