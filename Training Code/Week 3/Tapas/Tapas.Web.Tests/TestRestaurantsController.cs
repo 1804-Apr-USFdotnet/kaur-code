@@ -24,8 +24,14 @@ namespace Tapas.Web.Tests
         [TestMethod]
         public void TestIndexModelData()
         {
-           
-   
+            //Arrange
+            RestaurantsController controller = new RestaurantsController();
+            //Act
+            var result = controller.Index() as ViewResult ;
+            var data=result.Model as List<Restaurant>;
+            //Assert
+            Assert.AreEqual("FL", data[2].State);
+
         }
     }
 }
