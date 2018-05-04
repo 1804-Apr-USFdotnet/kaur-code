@@ -24,7 +24,7 @@ namespace Tapas.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new {
                     controller = "Restaurants",
-                    action = "Create",
+                    action = "Index",
                     id = UrlParameter.Optional
                 }
             );

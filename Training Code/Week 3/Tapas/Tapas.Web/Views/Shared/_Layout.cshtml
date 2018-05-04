@@ -8,6 +8,12 @@
 <body>
     <header>
         <h3>Calling Layout</h3>
+        <div style="background-color:aliceblue">
+            <marquee>@Html.Partial("_Top3Rests")</marquee>
+            @*<marquee>@{
+                Html.RenderPartial("_Top3Rests");
+                }</marquee>*@
+        </div>
         <table>
             <thead>
 
@@ -15,7 +21,7 @@
 
                 @Html.ActionLink("AboutUs", "AboutUs", "Home")|
 
-                @Html.ActionLink("Contact Us", "ContactUs", "Home")|
+                @Html.ActionLink("Contact Us", "ContactUs", "Home")
 
             </thead>
         </table>

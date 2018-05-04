@@ -34,7 +34,7 @@ namespace Tapas.DataLayer
             #endregion
         }
     }
-    public class TapasContext:DbContext
+    public class TapasContext:DbContext,IDbContext
     {
         public TapasContext():base("TapasDb")
         {
@@ -59,6 +59,11 @@ namespace Tapas.DataLayer
                 E.Property("Modified").CurrentValue = DateTime.Now;
             });
             return base.SaveChanges();  
+        }
+
+        IDbSet<TEntity> IDbContext.Set<TEntity>()
+        {
+            return base.Set<TEntity>();
         }
     }
 }

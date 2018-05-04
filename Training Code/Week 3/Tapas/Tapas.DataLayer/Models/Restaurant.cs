@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Tapas.DataLayer.Models
 {
     [Table("rest")]
-    public class Restaurant : IEntity
+    public class Restaurant : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

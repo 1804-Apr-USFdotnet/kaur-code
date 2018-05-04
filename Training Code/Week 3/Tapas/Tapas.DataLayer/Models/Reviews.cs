@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tapas.DataLayer.Models
 {
-    public class Review:IEntity
+    public class Review:BaseEntity
     {
         [Column("Id")]
         public int ReviewId { get; set; }

@@ -13,6 +13,7 @@ namespace Tapas.Web.Controllers
         
         //Action Methods
         // GET: Home
+        
         public string Hello()
         {
             return "Hello world";
@@ -21,11 +22,14 @@ namespace Tapas.Web.Controllers
         {
             return "Welcome to <b> USF-Revature</b>";
         }
-        //[NonAction]
+        [NonAction]
         public ContentResult Test()
         {
             return Content(HttpUtility.HtmlEncode("This is the .Net <script>alert('Your System is Hacked')</script> Training program"));
         }
+        [Authorize]
+        
+        [HandleError]
         public ActionResult Index()
         {
             TempData["Training"] = ".Net Full Stack";

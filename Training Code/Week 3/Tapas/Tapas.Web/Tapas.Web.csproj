@@ -99,13 +99,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
+    <Compile Include="CustomAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +122,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
+    <Content Include="Views\Shared\_Top3Rests.cshtml" />
+    <Content Include="Views\Restaurants\ChildAction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,8 +133,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tapas.DAL\Tapas.DAL.csproj">
+      <Project>{9a0733b0-8548-4e08-9934-bac6b2ea6dce}</Project>
+      <Name>Tapas.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tapas.DataLayer\Tapas.DataLayer.csproj">
       <Project>{a72e6337-6ffa-4363-a3b5-d07e792bd4b0}</Project>
       <Name>Tapas.DataLayer</Name>

@@ -3,31 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Tapas.Web.Models;
+using Tapas.DataLayer.Models;
+using Tapas.DAL.Repositories;
+using System.Net;
+using Tapas.DataLayer;
 
 namespace Tapas.Web.Controllers
 {
     public class RestaurantsController : Controller
     {
-        Restaurant restaurant = new Restaurant();
-
+        ICrud<Restaurant> crud;
+        IDbContext db;
+        public RestaurantsController()
+        {
+            db = new TapasContext();
+            crud = new Crud<Restaurant>(db);
+        }
         // GET: Restaurants
         [HttpGet]// default type of Action
         public ActionResult Index()
         {
-            return View(restaurant.GetRestaurants());
+            var rests = crud.Table.ToList();
+            return View(rests);
         }
 
         // GET: Restaurants/Details/5
         public ActionResult Details(int id)
         {
-            return View(restaurant.GetRestaurantById(id));
+            return View(crud.GetById(id));
         }
 
         // GET: Restaurants/Create
         public ActionResult Create()
         {
             return View();
+        }
+       // [ChildActionOnly]=> to be called by parent only
+        public PartialViewResult  ChildAction()
+        {
+            return PartialView();
         }
 
         // POST: Restaurants/Create
@@ -36,10 +50,16 @@ namespace Tapas.Web.Controllers
         {
             try
             {
-                restaurant.AddRestaurant(restaurant);
+                if (ModelState.IsValid)// Server side Validations
+                {
+                    crud.Insert(restaurant);
+                    return RedirectToAction("Index");
+                }
+                else
+                    return View(restaurant);
+            }               
                 // log that it worked
-                return RedirectToAction("Index");
-            }
+               
             catch
             {
                 // log some problem
@@ -68,13 +88,21 @@ namespace Tapas.Web.Controllers
 
         // POST: Restaurants/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id,Restaurant restaurant)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    crud.Update(restaurant);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(ModelState);
+                }
+              
             }
             catch
             {
@@ -83,19 +111,33 @@ namespace Tapas.Web.Controllers
         }
 
         // GET: Restaurants/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Restaurant rest = crud.GetById(id);
+            if (rest == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rest);
         }
 
         // POST: Restaurants/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost,ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
             try
             {
                 // TODO: Add delete logic here
-
+                Restaurant rest = crud.GetById(id);
+                if (rest!=null)
+                {
+                    crud.Delete(rest);
+                }
+                
                 return RedirectToAction("Index");
             }
             catch
