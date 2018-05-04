@@ -19,6 +19,10 @@ namespace Tapas.Web.Controllers
             db = new TapasContext();
             crud = new Crud<Restaurant>(db);
         }
+        public RestaurantsController(IDbContext fakeDb)
+        {
+            //fakeDb = new FakeTapasContext();
+        }
         // GET: Restaurants
         [HttpGet]// default type of Action
         public ActionResult Index()

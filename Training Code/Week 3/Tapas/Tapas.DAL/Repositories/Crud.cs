@@ -11,7 +11,7 @@ namespace Tapas.DAL.Repositories
         private readonly IDbContext _context;
         private IDbSet<T> _entities;
 
-        public Crud(IDbContext context)
+        public Crud(IDbContext context)// Injecting Dependency
         {
             this._context = context;
         }
@@ -38,7 +38,7 @@ namespace Tapas.DAL.Repositories
 
                 foreach (var validationErrors in dbEx.EntityValidationErrors)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    foreach (var validationError  in validationErrors.ValidationErrors)
                     {
                         msg += string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
                     }

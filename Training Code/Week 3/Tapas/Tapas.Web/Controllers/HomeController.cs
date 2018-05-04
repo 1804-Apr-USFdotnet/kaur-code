@@ -33,7 +33,7 @@ namespace Tapas.Web.Controllers
         public ActionResult Index()
         {
             TempData["Training"] = ".Net Full Stack";
-            return View();
+            return View("ContactUs");
         }
         public ActionResult AboutUs()
         {

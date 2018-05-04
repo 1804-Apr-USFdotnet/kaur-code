@@ -11,11 +11,6 @@ namespace Tapas.DAL.Repositories
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
-        IQueryable<T> Table { get; }
-        /*IEnumerable<T> GetAll();
-        T GetById(int id);
-        void Add(T Entity);
-        void Update(T Entity);
-        void Delete(int id);*/
+        IQueryable<T> Table { get; }       
     }
 }
