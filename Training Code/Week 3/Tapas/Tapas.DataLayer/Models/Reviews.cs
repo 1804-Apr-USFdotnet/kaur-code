@@ -7,6 +7,7 @@ namespace Tapas.DataLayer.Models
     public class Review:BaseEntity
     {
         [Column("Id")]
+        [ScaffoldColumn(false)]
         public int ReviewId { get; set; }
         [Required]
         [Range(1,10, ErrorMessage ="Rating should be between 1 and 10")]

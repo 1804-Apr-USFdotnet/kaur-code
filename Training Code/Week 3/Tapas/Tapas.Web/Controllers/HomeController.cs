@@ -8,8 +8,7 @@ namespace Tapas.Web.Controllers
 {
     public class HomeController : Controller
     {
-        string name = "Nick Escalona";
-        int num = 10;
+        
         
         //Action Methods
         // GET: Home

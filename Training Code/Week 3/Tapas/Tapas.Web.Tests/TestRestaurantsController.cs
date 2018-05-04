@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tapas.DataLayer.Models;
@@ -10,16 +11,21 @@ namespace Tapas.Web.Tests
     public class TestRestaurantsController
     {
         [TestMethod]
-        public void TestIndex()
+        public void TestIndexModel()
         {
             //Arrange
-            RestaurantsController controller = new RestaurantsController();
-            Restaurant expected=null;
+            RestaurantsController controller = new RestaurantsController();            
             //Act
             var indexData=controller.Index() as ViewResult;
-            var actual = indexData.Model;            
+            var actual = indexData.Model; 
             //Assert
-            Assert.AreEqual(expected.GetType(), actual.GetType());
+            Assert.IsNotNull(actual);
+        }
+        [TestMethod]
+        public void TestIndexModelData()
+        {
+           
+   
         }
     }
 }
