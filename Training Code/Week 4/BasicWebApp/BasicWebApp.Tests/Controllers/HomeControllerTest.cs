@@ -22,7 +22,7 @@ namespace BasicWebApp.Tests.Controllers
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsNull(result); // failing test!
         }
 
         [TestMethod]
