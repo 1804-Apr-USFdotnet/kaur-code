@@ -11,6 +11,7 @@ node('master') {
         }
         catch (exc) {
             slackSend 'build failed!'
+            throw exc
         }
     }
     stage('test') {
@@ -21,6 +22,7 @@ node('master') {
         }
         catch (exc) {
             slackSend color: 'danger', message: 'test failed!'
+            throw exc
         }
     }
     stage('analyze') {
@@ -30,6 +32,7 @@ node('master') {
         }
         catch (exc) {
             slackSend 'analyze failed!'
+            throw exc
         }
     }
     stage('package') {
@@ -42,6 +45,7 @@ node('master') {
         }
         catch (exc) {
             slackSend 'package failed!'
+            throw exc
         }
     }
     stage('deploy') {
@@ -54,6 +58,7 @@ node('master') {
         }
         catch (exc) {
             slackSend 'deploy failed!'
+            throw exc
         }
     }
 }
