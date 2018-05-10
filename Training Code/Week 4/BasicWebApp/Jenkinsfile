@@ -1,12 +1,18 @@
 node('master') {
     stage('import') {
-        git 'https://github.com/1804-Apr-USFdotnet/kaur-code.git'
+        try {
+            git 'https://github.com/1804-Apr-USFdotnet/kaur-code.git'
+        }
+        catch (exc) {
+            slackSend 'import failed!'
+            throw exc
+        }
     }
     stage('build') {
         try {
             dir('Training Code/Week 4/BasicWebApp') {
                 bat 'nuget restore'
-                bat 'msbuild'
+                bat 'msbuild /p:MvcBuildViews=true'
             }
         }
         catch (exc) {
