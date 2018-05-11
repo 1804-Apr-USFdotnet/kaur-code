@@ -10,7 +10,7 @@ namespace RestaurantReviews.PL.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Restaurant");
+            return RedirectToAction("Index", "Restaurant"); // make some change
         }
 
         public ActionResult About()
