@@ -34,7 +34,7 @@ node('master') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
                 bat 'SonarScanner.MSBuild begin /k:restaurant_reviews /v:0.1.0 /d:sonar.verbose=true'
-                bat 'msbuild /t:rebuild'
+                bat 'msbuild /t:rebuild RestaurantReviews.sln'
                 bat 'SonarScanner.MSBuild end'
             }
         }
