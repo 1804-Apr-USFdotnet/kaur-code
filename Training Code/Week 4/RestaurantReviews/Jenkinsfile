@@ -43,7 +43,7 @@ node('master') {
     stage('package') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
-                bat 'msbuild RestaurantReviews.PL /t:package /p:PackageFileName=Package.zip'
+                bat 'msbuild RestaurantReviews.PL /t:package /p:PackageFileName=..\\Package.zip'
             }
         }
         catch (exc) {
