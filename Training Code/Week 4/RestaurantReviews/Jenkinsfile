@@ -43,7 +43,7 @@ node('master') {
     stage('package') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
-                bat 'msbuild RestaurantReviews.PL /t:package /p:PackageFileName=..\\Package.zip'
+                bat 'msbuild RestaurantReviews.PL /t:package /p:Configuration=Debug;PackageFileName=..\\Package.zip'
             }
         }
         catch (exc) {
@@ -65,5 +65,5 @@ node('master') {
 }
 
 def slackError(stageName) {
-//    slackSend color: 'danger', message: "FAILED ${stageName} stage: [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString.replace(' and counting', '')}]"
+    slackSend color: 'danger', message: "FAILED ${stageName} stage: [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString.replace(' and counting', '')}]"
 }
