@@ -33,6 +33,9 @@ node('master') {
     stage('analyze') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
+                bat 'SonarQube.Scanner.MSBuild begin /k:restaurant_reviews /v:0.1.0'
+                bat 'msbuild /t:rebuild'
+                bat 'SonarQube.Scanner.MSBuild end'
             }
         }
         catch (exc) {
