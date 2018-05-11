@@ -54,22 +54,7 @@ node('master') {
     stage('deploy') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
-                bat """
-                    msdeploy
-                    -verb:sync
-                    -source:package=\"%CD%\\Package.zip\"
-                    -dest:iisApp=\"Default Web Site/RestaurantReviews\",
-                          computerName=\"https://ec2-52-70-230-124.compute-1.amazonaws.com:8172/msdeploy.axd\",
-                          userName=\"Administrator\",
-                          password=\"${env.Deploy_Password}\",
-                          authtype=\"basic\",
-                          includeAcls=\"False\"
-                    -disableLink:AppPoolExtension
-                    -disableLink:ContentExtension
-                    -disableLink:CertificateExtension
-                    -enableRule:AppOffline
-                    -allowUntrusted
-                """
+                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:iisApp=\"Default Web Site/RestaurantReviews\",computerName=\"https://ec2-52-70-230-124.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -enableRule:AppOffline -allowUntrusted"
             }
         }
         catch (exc) {
