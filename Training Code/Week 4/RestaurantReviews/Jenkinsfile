@@ -43,9 +43,7 @@ node('master') {
     stage('package') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
-                dir('RestaurantReviews.PL') {
-                    bat 'msbuild /t:package'
-                }
+                bat 'msbuild RestaurantReviews.PL /t:package /p:PackageFileName=Package.zip'
             }
         }
         catch (exc) {
@@ -56,9 +54,22 @@ node('master') {
     stage('deploy') {
         try {
             dir('Training Code/Week 4/RestaurantReviews') {
-                dir('RestaurantReviews.PL/obj/Debug/Package') {
-                    bat "\"C:\\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe\" -source:package='C:\\Program Files (x86)\\Jenkins\\workspace\\Project-1\\Training Code\\Week 4\\RestaurantReviews\\RestaurantReviews.PL\\obj\\Debug\\Package\\RestaurantReviews.PL.zip' -dest:auto,computerName=\"https://ec2-52-70-230-124.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParamFile:\"C:\\Program Files (x86)\\Jenkins\\workspace\\Project-1\\Training Code\\Week 4\\RestaurantReviews\\RestaurantReviews.PL\\obj\\Debug\\Package\\RestaurantReviews.PL.SetParameters.xml\" -AllowUntrusted=True"
-                }
+                bat """
+                    msdeploy
+                    -verb:sync
+                    -source:package=\"%CD%\\Package.zip\"
+                    -dest:iisApp=\"Default Web Site/RestaurantReviews\",
+                          computerName=\"https://ec2-52-70-230-124.compute-1.amazonaws.com:8172/msdeploy.axd\",
+                          userName=\"Administrator\",
+                          password=\"${env.Deploy_Password}\",
+                          authtype=\"basic\",
+                          includeAcls=\"False\"
+                    -disableLink:AppPoolExtension
+                    -disableLink:ContentExtension
+                    -disableLink:CertificateExtension
+                    -enableRule:AppOffline
+                    -allowUntrusted
+                """
             }
         }
         catch (exc) {
@@ -69,5 +80,5 @@ node('master') {
 }
 
 def slackError(stageName) {
-    slackSend color: 'danger', message: "${stageName} stage failed. [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString[0..-14]}]"
+//    slackSend color: 'danger', message: "FAILED ${stageName} stage: [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString.replace(' and counting', '')}]"
 }
