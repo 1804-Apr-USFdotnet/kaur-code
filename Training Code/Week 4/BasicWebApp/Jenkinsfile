@@ -1,0 +1,74 @@
+node('master') {
+    stage('import') {
+        try {
+            git 'https://github.com/1804-Apr-USFdotnet/kaur-code.git'
+        }
+        catch (exc) {
+            slackError('import')
+            throw exc
+        }
+    }
+    stage('build') {
+        try {
+            dir('Training Code/Week 4/BasicWebApp') {
+                bat 'nuget restore'
+                bat 'msbuild /p:MvcBuildViews=true'
+            }
+        }
+        catch (exc) {
+            slackError('build')
+            throw exc
+        }
+    }
+    stage('test') {
+        try {
+            dir('Training Code/Week 4/BasicWebApp') {
+                bat "VSTest.Console BasicWebApp.Tests\\bin\\Debug\\BasicWebApp.Tests.dll"
+            }
+        }
+        catch (exc) {
+            slackError('test')
+            throw exc
+        }
+    }
+    stage('analyze') {
+        try {
+            dir('Training Code/Week 4/BasicWebApp') {
+            }
+        }
+        catch (exc) {
+            slackError('analyze')
+            throw exc
+        }
+    }
+    stage('package') {
+        try {
+            dir('Training Code/Week 4/BasicWebApp') {
+                dir('BasicWebApp') {
+                    bat 'msbuild /t:package'
+                }
+            }
+        }
+        catch (exc) {
+            slackError('package')
+            throw exc
+        }
+    }
+    stage('deploy') {
+        try {
+            dir('Training Code/Week 4/BasicWebApp') {
+                dir('BasicWebApp/obj/Debug/Package') {
+                    bat "\"C:\\Program Files\\IIS\\Microsoft Web Deploy V3\\msdeploy.exe\" -source:package='C:\\Program Files (x86)\\Jenkins\\workspace\\Project-1\\Training Code\\Week 4\\BasicWebApp\\BasicWebApp\\obj\\Debug\\Package\\BasicWebApp.zip' -dest:auto,computerName=\"https://ec2-52-70-230-124.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -verb:sync -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParamFile:\"C:\\Program Files (x86)\\Jenkins\\workspace\\Project-1\\Training Code\\Week 4\\BasicWebApp\\BasicWebApp\\obj\\Debug\\Package\\BasicWebApp.SetParameters.xml\" -AllowUntrusted=True"
+                }
+            }
+        }
+        catch (exc) {
+            slackError('deploy')
+            throw exc
+        }
+    }
+}
+
+def slackError(stageName) {
+    slackSend color: 'danger', message: "${stageName} stage failed. [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString[0..-14]}]"
+}

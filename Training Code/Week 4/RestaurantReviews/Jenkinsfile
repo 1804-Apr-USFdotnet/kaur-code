@@ -1,0 +1,74 @@
+node('master') {
+    stage('import') {
+        try {
+            git 'https://github.com/1804-Apr-USFdotnet/kaur-code.git'
+        }
+        catch (exc) {
+            slackError('import')
+            throw exc
+        }
+    }
+    stage('build') {
+        try {
+            dir('Training Code/Week 4/RestaurantReviews') {
+                bat 'nuget restore'
+                bat 'msbuild /p:MvcBuildViews=true'
+            }
+        }
+        catch (exc) {
+            slackError('build')
+            throw exc
+        }
+    }
+    stage('test') {
+        try {
+            dir('Training Code/Week 4/RestaurantReviews') {
+                bat "VSTest.Console RestaurantReviews.Tests\\bin\\Debug\\RestaurantReviews.Tests.dll"
+            }
+        }
+        catch (exc) {
+            slackError('test')
+            throw exc
+        }
+    }
+    stage('analyze') {
+        try {
+            dir('Training Code/Week 4/RestaurantReviews') {
+                bat 'SonarScanner.MSBuild begin /k:restaurant_reviews /v:0.1.0 /d:sonar.verbose=true'
+                bat 'msbuild /t:rebuild'
+                // bat "VSTest.Console RestaurantReviews.Tests\\bin\\Debug\\RestaurantReviews.Tests.dll /EnableCodeCoverage"
+                bat 'SonarScanner.MSBuild end'
+            }
+        }
+        catch (exc) {
+            slackError('analyze')
+            throw exc
+        }
+    }
+    stage('package') {
+        try {
+            dir('Training Code/Week 4/RestaurantReviews') {
+                bat 'msbuild RestaurantReviews.PL /t:package /p:Configuration=Debug;PackageFileName=..\\Package.zip'
+            }
+        }
+        catch (exc) {
+            slackError('package')
+            throw exc
+        }
+    }
+    stage('deploy') {
+        try {
+            dir('Training Code/Week 4/RestaurantReviews') {
+                bat "msdeploy -verb:sync -source:package=\"%CD%\\Package.zip\" -dest:auto,computerName=\"https://ec2-52-70-230-124.compute-1.amazonaws.com:8172/msdeploy.axd\",userName=\"Administrator\",password=\"${env.Deploy_Password}\",authtype=\"basic\",includeAcls=\"False\" -disableLink:AppPoolExtension -disableLink:ContentExtension -disableLink:CertificateExtension -setParam:\"IIS Web Application Name\"=\"Default Web Site/RestaurantReviews\" -enableRule:AppOffline -allowUntrusted"
+            }
+        }
+        catch (exc) {
+            slackError('deploy')
+            throw exc
+        }
+    }
+}
+
+def slackError(stageName) {
+    slackSend color: 'danger', message: "FAILED ${stageName} stage: [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString.replace(' and counting', '')}]"
+}

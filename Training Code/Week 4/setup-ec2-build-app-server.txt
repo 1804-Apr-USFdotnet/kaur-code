@@ -1,0 +1,186 @@
+build server needs:
+    Jenkins
+    Git
+    Nuget
+    VS Build Tools (Web development tools; MSBuild, VSTest.Console)
+    .NET Framework 4
+    ASP.NET 4
+    SonarQube Scanner for MSBuild
+        JRE 8
+    Web Deploy
+
+app server needs:
+    IIS
+    Web Deploy
+    .NET Framework 4
+    ASP.NET 4
+
+new EC2 instance:
+    Launch Instance
+    (check "Free tier only" in left sidebar to be safe)
+    Select Windows Server 2016 Base
+    t2.small for faster setup, t2.micro for free setup
+    5. Add Tags
+        Click add a Name tag, give the instance a name
+    6. Configure Security Group
+        Allow HTTP from My IP
+        Allow port 3389 from My IP (Remote Desktop)
+        Allow port 8080 from Anywhere (Jenkins, for GitHub webhook)
+        [If app server] Allow port 8172 from build server's IP (Web Deploy)
+        Repeat My IP rules as necessary for access from different places
+    Launch
+        Use existing key pair or use new key pair as necessary
+    note public DNS in lower panel
+    In security groups for any needed DBs, allow needed ports from this server's IP
+    Connect
+        Download Remote Desktop File
+        Get Password
+    connect via Remote Desktop Connection
+        Ignore security warnings
+        Network discoverability: yes
+        Start, search password, Change your password
+            Change your account password, note the new password
+        run Server Manager
+            (1) Configure this local server
+                under Properties, IE Enhanced Security Configuration
+                    set to Off for Administrators
+            (2) Add roles and features
+                whenever prompted to add additional required features, accept
+                [If app server] Server Roles
+                    check Web Server (IIS)
+                Features
+                    [If app server] expand .NET Framework 3.5 Features, check all
+                    expand .NET Framework 4.6 Features
+                        check ASP.NET 4.6
+                        [If app server, hosting SOAP service] expand WCF Services, check HTTP Activation
+                [If app server] Role Services, under Web Server
+                    under Common HTTP Features, check HTTP Redirection
+                    under Performance, check Dynamic Content Compression
+                    under Security, check Basic Authentication
+                Install
+        File Explorer
+            View
+                check File name extensions
+                check Hidden items
+        Internet Explorer
+            Use recommended settings: OK
+            Protected mode is turned off: Don't show this message again
+            find, download, & install Web Platform Installer
+        Web Platform Installer
+            [If build server] add Git for Windows
+            add Web Deploy 3.6
+            [If app server] add Web Deploy 3.6 for Hosting Servers
+            Install
+        [If app server] add C:\Program Files\IIS\Microsoft Web Deploy V3 to System Path
+
+adding to System Path
+    Start, search variables
+        Environment variables
+            System variables, Path, Edit
+                New
+
+VS Build Tools
+    Internet Explorer
+        https://www.visualstudio.com/downloads/
+            download & install Build Tools for Visual Studio 2017
+    Visual Studio Installer
+        under Workloads, check Web development build tools
+        Install
+    add to System Path
+        C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin
+        C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\Common7\IDE\CommonExtensions\Microsoft\TestWindow
+
+Nuget
+    Internet Explorer
+        search for Nuget
+            Downloads
+                under Windows x86 Commandline, recommended latest (save, not run)
+    File Explorer
+        create folder C:\Tools\Nuget
+        move nuget.exe into C:\Tools\Nuget
+    [while ephemeral bug with Nuget/MSBuild 15.7.1 exists]
+        copy C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\System.Runtime.InteropServices.RuntimeInformation.dll to C:\Tools\Nuget
+    add C:\Tools\Nuget to System Path
+
+SonarQube Scanner for MSBuild
+    Internet Explorer
+        search for JRE 8
+            choose the latest Windows x64 .exe download
+            run and install
+        search for SonarQube Scanner for MSBuild
+            Download for .NET Framework 4.6+
+            extract to C:\Tools\SonarScanner-MSBuild (creating it first)
+    on https://sonarcloud.io
+        click avatar at top right, choose organization
+        note the organization Key
+        if the project already exists, note its key
+        if the project does not exist
+            create it under Administration, Project Management, Create Project
+        edit project settings under (project name), Administration, if desired
+            especially under General Settings, Analysis Scope
+            or edit Quality Gate, having created or edited one in (organization), Quality Gates
+        if necessary, get a token from avatar, My Account, Security, and save it
+    edit C:\Tools\SonarScanner-MSBuildSonarQube.Analysis.xml
+        uncomment sonar.host.url, set it to https://sonarcloud.io
+        uncomment sonar.login, set it to the token
+        add tag for sonar.organization, set it to the organization key
+    add C:\Tools\SonarScanner-MSBuild to System Path
+
+Jenkins
+    Internet Explorer
+        search Jenkins
+            Download
+                download & install long-term support version for Windows
+        http://localhost:8080
+            follow Unlock Jenkins directions
+            Install Suggested Plugins
+            Create First Admin User, Save and Finish
+    Services
+        Jenkins, Properties, Log On
+            Log on as: This account, type "Administrator", fill in password
+        Restart Jenkins service
+    http://<ec2-public-dns>:8080
+        Manage Jenkins
+            Manage Plugins
+                Available
+                    Filter slack notification
+                    check Slack notification
+                    Install without restart
+            Configure System
+                Global properties
+                    check Environment variables
+                        add Name, Value pairs for needed variables in pipeline, especially deploy passwords
+                Jenkins location
+                    ensure Jenkins URL is correct to EC2's public DNS
+                GitHub
+                    Add GitHub Server
+                        choose lower Advanced...
+                            Manage additional GitHub actions, Convert login and password to token
+                                From login and password, fill in, Create token credentials
+                        set Credentials to generated GitHub token
+                        Test connection
+                Global Slack Notifier Settings
+
+        Create new jobs
+            Create Pipeline job with name, OK
+            General
+                check GitHub project
+                    enter repo URL (browser URL, not clone URL)
+            Build Triggers
+                check GitHub hook trigger for GITScm polling
+            Pipeline
+                change Definition to Pipeline script from SCM
+                    change SCM to Git
+                    enter repo URL (clone URL, not browser URL)
+                    change Branches to build as desired
+                    change Script Path to the path to the Jenkinsfile from the repo root
+            Save
+    https://slack.com/apps
+        search Jenkins CI
+            Add Configuration
+                choose privately to you, or, scroll far down to DM groups and choose project group
+                Add Jenkins CI integration
+                Follow steps 1-3 only
+                Fill in channel name, to match what appears at the bottom when you click "jenkins" in the new slack message
+                    Test connection
+    complete any other installations and system path edits, then restart Jenkins from Services
