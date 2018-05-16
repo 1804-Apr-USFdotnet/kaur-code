@@ -30,6 +30,12 @@ new EC2 instance:
         Repeat My IP rules as necessary for access from different places
     Launch
         Use existing key pair or use new key pair as necessary
+    choose Elastic IPs in left sidebar
+        Allocate new address
+            Allocate
+        right-click on the new IP, Associate address
+            choose the EC2 instance from the dropdown
+            Associate
     note public DNS in lower panel
     In security groups for any needed DBs, allow needed ports from this server's IP
     Connect
@@ -72,6 +78,12 @@ new EC2 instance:
             [If app server] add Web Deploy 3.6 for Hosting Servers
             Install
         [If app server] add C:\Program Files\IIS\Microsoft Web Deploy V3 to System Path
+    once all installation and Remote Desktop configuration is done, consider scaling EC2 down to t2.micro
+        ensure no build or installation is in progress
+        right-click on EC2 instance, set Instance State to Stop
+        when it's stopped, choose Instance Settings -> Change Instance Type
+            choose t2.micro, and confirm
+        set Instance State to Start
 
 adding to System Path
     Start, search variables
