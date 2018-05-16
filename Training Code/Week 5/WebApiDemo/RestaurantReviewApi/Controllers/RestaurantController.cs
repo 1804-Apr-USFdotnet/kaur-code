@@ -17,32 +17,34 @@ namespace RestaurantReviewApi.Controllers
              new Restaurant(){ Id=4, Name="WhataBurger", Address="NEC, USF, Tampa FL USA,33617 "},
              new Restaurant(){ Id=5, Name="MeiPizza", Address="NEC, USF, Tampa FL USA,33617 "}
         };
-        // GET api/values
-        public IEnumerable<Restaurant> Get()
+        public HttpResponseMessage Get()
         {
-            return restaurants;
+            return Request.CreateResponse(HttpStatusCode.Accepted, restaurants) ;
         }
-
-        // GET api/values/5
-        public Restaurant Get(int id)
+        public IHttpActionResult Get(int? id)
         {
-            var restaurant = restaurants.Find(x=>x.Id==id);
-            return restaurant;
+            if (id!=null || id!=0)
+            {
+                var restaurant = restaurants.Find(x => x.Id == id);
+                if (restaurant!=null)
+                {
+                    return Ok(restaurant);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            return BadRequest("Please Pass the id to search for the restaurant"); 
         }
-
-        // POST api/values
         public void Post([FromBody]Restaurant value)
         {
             restaurants.Add(value);
         }
-
-        // PUT api/values/5
         public void Put(int id, [FromBody]Restaurant value)
         {
             restaurants.Insert(id,value);
-        }
-
-        // DELETE api/values/5
+        }  
         public void Delete(int id)
         {
             restaurants.RemoveAt(id);
