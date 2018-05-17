@@ -10,6 +10,12 @@ namespace RestaurantReviewsRESTConsumer.Controllers
     {
         public ActionResult Index()
         {
+
+            return View();
+        }
+
+        public ActionResult List()
+        {
             return View();
         }
 
