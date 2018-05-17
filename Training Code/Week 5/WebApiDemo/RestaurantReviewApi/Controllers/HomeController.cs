@@ -6,7 +6,7 @@ namespace RestaurantReviewApi.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Restaurant Page";
 
             return View();
         }

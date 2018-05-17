@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+    <h1>See Restaurants</h1>
+    <div id="List">
+        <input type="button" class="btn btn-default" value="Get Restaurants" onclick="Show();" />
+
+    </div>
+    <script>
+        function Show() {
+            debugger;
+            $.get(
+                "http://localhost:58558/api/Restaurant", function (result) {
+                    debugger;
+                    $("#List").html(result[0].Name);
+                })
+            //.done(function (message) { alert("done"); })
+                .fail(function (error) {
+                    debugger;
+                    alert(error)
+                })
+            //.always(function () {
+            //    alert("finished")
+            //});
+        }
+    </script>
+</body>
+</html>
