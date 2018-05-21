@@ -24,16 +24,25 @@ namespace AuthTest2Consumer.Controllers
                 return View("Error");
             }
 
-            var request = CreateRequestToService(HttpMethod.Post, "api/Account/Login");
-            request.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
-            var response = await HttpClient.SendAsync(request);
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Post, "api/Account/Login");
+            apiRequest.Content = new ObjectContent<Account>(account, new JsonMediaTypeFormatter());
 
-            if (!response.IsSuccessStatusCode)
+            HttpResponseMessage apiResponse;
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
             {
                 return View("Error");
             }
 
-            PassCookiesToClient(response);
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
 
             return RedirectToAction("Index", "Home");
         }
@@ -46,24 +55,34 @@ namespace AuthTest2Consumer.Controllers
                 return View("Error");
             }
 
-            var request = CreateRequestToService(HttpMethod.Get, "api/Account/Logout");
-            var response = await HttpClient.SendAsync(request);
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "api/Account/Logout");
 
-            if (!response.IsSuccessStatusCode)
+            HttpResponseMessage apiResponse;
+
+            try
+            {
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
             {
                 return View("Error");
             }
 
-            PassCookiesToClient(response);
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                return View("Error");
+            }
+
+            PassCookiesToClient(apiResponse);
 
             return RedirectToAction("Index", "Home");
         }
 
-        private bool PassCookiesToClient(HttpResponseMessage response)
+        private bool PassCookiesToClient(HttpResponseMessage apiResponse)
         {
-            if (response.Headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
+            if (apiResponse.Headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
             {
-                foreach (var value in values)
+                foreach (string value in values)
                 {
                     Response.Headers.Add("Set-Cookie", value);
                 }

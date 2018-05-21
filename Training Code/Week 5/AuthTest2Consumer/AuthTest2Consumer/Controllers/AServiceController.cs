@@ -13,12 +13,13 @@ namespace AuthTest2Consumer.Controllers
         
         protected HttpRequestMessage CreateRequestToService(HttpMethod method, string uri)
         {
-            var request = new HttpRequestMessage(method, new Uri(serviceUri, uri));
+            var apiRequest = new HttpRequestMessage(method, new Uri(serviceUri, uri));
 
-            var cookieValue = Request.Cookies[cookieName]?.Value ?? ""; // ?. operator new in C# 7
-            request.Headers.Add("Cookie", new CookieHeaderValue(cookieName, cookieValue).ToString());
+            string cookieValue = Request.Cookies[cookieName]?.Value ?? ""; // ?. operator new in C# 7
 
-            return request;
+            apiRequest.Headers.Add("Cookie", new CookieHeaderValue(cookieName, cookieValue).ToString());
+
+            return apiRequest;
         }
     }
 }

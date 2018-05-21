@@ -9,13 +9,21 @@ namespace AuthTest2Consumer.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var request = CreateRequestToService(HttpMethod.Get, "api/Data");
+            HttpRequestMessage apiRequest = CreateRequestToService(HttpMethod.Get, "api/Data");
 
-            var response = await HttpClient.SendAsync(request);
-
-            if (!response.IsSuccessStatusCode)
+            HttpResponseMessage apiResponse;
+            try
             {
-                if (response.StatusCode != HttpStatusCode.Unauthorized)
+                apiResponse = await HttpClient.SendAsync(apiRequest);
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            if (!apiResponse.IsSuccessStatusCode)
+            {
+                if (apiResponse.StatusCode != HttpStatusCode.Unauthorized)
                 {
                     return View("Error");
                 }
@@ -23,7 +31,7 @@ namespace AuthTest2Consumer.Controllers
             }
             else
             {
-                var contentString = await response.Content.ReadAsStringAsync();
+                var contentString = await apiResponse.Content.ReadAsStringAsync();
                 ViewBag.Message = "Logged in! Result: " + contentString;
             }
 
