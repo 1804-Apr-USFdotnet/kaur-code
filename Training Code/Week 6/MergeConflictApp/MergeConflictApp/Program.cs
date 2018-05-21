@@ -10,7 +10,8 @@ namespace MergeConflictApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("My Feature Is Better");
+            Console.WriteLine("Great Feature");
+            Console.WriteLine("My Feature Is Even Better");
         }
     }
 }
