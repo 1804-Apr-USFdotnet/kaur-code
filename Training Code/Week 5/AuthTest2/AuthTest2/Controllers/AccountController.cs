@@ -82,7 +82,6 @@ namespace AuthTest2.Controllers
             var userManager = new UserManager<IdentityUser>(userStore);
             var user = userManager.Users.FirstOrDefault(u => u.UserName == account.UserName);
 
-
             if (user == null)
             {
                 return BadRequest();
@@ -94,7 +93,7 @@ namespace AuthTest2.Controllers
             }
 
             var authManager = Request.GetOwinContext().Authentication;
-            var claimsIdentity = userManager.CreateIdentity(user, "ApplicationCookie");
+            var claimsIdentity = userManager.CreateIdentity(user, WebApiConfig.AuthenticationType);
 
             authManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claimsIdentity);
 
@@ -105,7 +104,7 @@ namespace AuthTest2.Controllers
         [Route("~/api/Account/Logout")]
         public IHttpActionResult Logout()
         {
-            Request.GetOwinContext().Authentication.SignOut("ApplicationCookie");
+            Request.GetOwinContext().Authentication.SignOut(WebApiConfig.AuthenticationType);
             return Ok();
         }
     }

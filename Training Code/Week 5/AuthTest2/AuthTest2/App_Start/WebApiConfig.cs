@@ -7,9 +7,13 @@ namespace AuthTest2
 {
     public static class WebApiConfig
     {
+        public static string AuthenticationType = "AuthTestCookie";
+        public static string CookieName = "AuthTestCookie";
+
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.EnableCors();
 
             // equivalent of [Authorize] on EVERYTHING
             config.Filters.Add(new AuthorizeAttribute());
