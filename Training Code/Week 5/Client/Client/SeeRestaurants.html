@@ -9,7 +9,7 @@
 <body>
     <h1>See Restaurants</h1>
     <div id="List">
-        <input type="button" class="btn btn-default" value="Get Restaurants" onclick="Show();" />
+    <input type="button" class="btn btn-default" value="Get Restaurants" onclick="Show();" />
 
     </div>
     <script>
@@ -17,8 +17,7 @@
             debugger;
             $.get(
                 "http://localhost:58558/api/Restaurant", function (result) {
-                    debugger;
-                    $("#List").html(result[0].Name);
+                  $("#List").html(result[0].Name);
                 })
             //.done(function (message) { alert("done"); })
                 .fail(function (error) {

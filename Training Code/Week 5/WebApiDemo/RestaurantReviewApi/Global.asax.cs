@@ -23,9 +23,11 @@ namespace RestaurantReviewApi
     {
         protected void Application_Start()
         {
-            var corsAttr = new EnableCorsAttribute("*", "*", "*");
+            var corsAttr = new EnableCorsAttribute
+                ("*", "*", "*");
 
-            GlobalConfiguration.Configuration.EnableCors(corsAttr);
+            GlobalConfiguration.Configuration
+                .EnableCors(corsAttr);
 
             
             AreaRegistration.RegisterAllAreas();

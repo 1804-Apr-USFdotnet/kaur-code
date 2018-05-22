@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Learn JavaScript</title>
+</head>
+<body>
+    <script>
+//alert('Hello World')
+  /*Datatypes in JavaScript
+    //PrimitiveTypes: Number, String, undefined, null. boolean
+      //1. NUMBER
+        // age = 18; //global variables
+        // var age =18; //old way of declaring types
+        //let age = 18; //mordern way
+        let currentDollarRate = 65.50;
+       // alert('1' / 0);
+       //alert(typeof -1);
+    // 2. STRING
+        let Name = "Jay";
+        let name;
+        //alert(`Hello ${Name.toUpperCase()}`);
+    // 3. UNDEFINED
+        let notDefined;// not assigned
+       // alert(notDefined);
+    // 4. NULL => not known, empty
+        let data = null;
+    // 5. BOOLEAN
+        //let age = prompt("Please Enter your age");
+       if (age >= 18)
+            alert('welcome')
+        else 
+            alert('Not eligible');
+        //let allow = (age >= 18) ? alert("Welcome to the party") : alert("Not allowed");// ternary operator
+        //Special Types : Object , Symbol
+        //alert(typeof (Math));
+     //TYPECONVERSION:
+        //let info="      123456      ";//null //= true;        
+       // info = "Pushpinder Kaur";
+       // info = String(info);
+       // alert(typeof info);
+       // alert(info/"5");
+       // alert(Number(info));
+        //alert(Boolean(NaN));
+        //falsy : null, 0, "", undefined, false, NaN 
+        */
+// FUNCTIONS
+        /*
+        //var userName = "Diana";// global variable
+        (
+            function Show() {
+                var userName = "Peter";
+                //   alert(userName);
+            }()
+        ); //Immediately Invoked Functions Expression
+         /
+        */
+        var Age = 19;
+        const pi = 3.14;
+       // "use strict"
+        var addResult = function () {
+            var temp = 0;
+            for (var i = 0; i < arguments.length; i++) {
+                temp += arguments[i];
+            }
+            return temp;
+        }
+       // alert(addResult(10, 20,25));// pass any parameters
+        var result=function calculateCirclePerimeter(r) {
+                //pi = 2.5;// error as its a constant
+                debugger;
+                let area = pi * r * r;
+                return area;
+        };
+     //   alert(result(10));
+        //var output = CheckAge();
+        function CheckAge() {
+            debugger;
+            if (Age >= 18) {
+                var result = "Eligible";
+                Age = 20;
+            }
+            else {
+                result = "Not Eligible";
+            }
+            return result;
+        } 
+       // alert(result);
+     //  alert(output);
+        //CALLBACK FUNCTION
+        function Aggreement(policyAcceptance, yes, no) {
+            if (confirm(policyAcceptance))
+                yes();
+            else
+                No();
+        }
+        function ShowOk() {
+            alert("Yes I Agree to the policy");
+        }
+        function ShowCancel() {
+            alert("You did not agree to the policy.. We can't mpve further");;
+        }
+       // Aggreement("Do you Agree to the policy?", ShowOk, ShowCancel);
+        //CLOSURES
+       function Outer() {
+           var outerData = "outer Data";
+            function Inner() {
+                alert(outerData);
+          }
+          return Inner;
+        }
+     //   alert(outerData);
+        var funcCall = Outer();
+        var funcInner = funcCall();
+        alert(funcInner());
+    </script>
+</body>
+</html>
