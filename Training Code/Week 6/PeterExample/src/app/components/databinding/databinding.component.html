@@ -1,0 +1,91 @@
+<div>
+  <div class="panel-heading">
+    <span class="label label-default label-center">{{title}}{{interpolationNotation}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right"> Interpolation {{interpolation}}</span>
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+        Used for
+        <strong>one-way</strong> databinding to a 
+        <strong>value</strong>.
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+        You can also
+        <strong>evaluate</strong> using
+        <strong>{{interpolationNotation}}</strong> notation as well.
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+        21 + 55
+        <strong>=</strong> {{21+55}}.
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <span class="label label-default label-center">Property Binding {{propertyBindingNotation}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        Change the attributes of a node on the changes of property
+      </div>
+      <div class="list-group-item list-group-item-demo">
+        <div [ngStyle]='objectStyle' (click)="changeStyles()">
+          Click me to toggle styles
+        </div>
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        We can change and bind to properties of another component.
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        Another form of one-way databinding
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <span class="label label-default label-center">Event Binding {{eventBindingNotation}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        Used for event handling
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        click the button to increment the value: {{counter}}
+      </div>
+      <div (click)="addToCounter()">
+        <button class="btn btn-primary btn-center">increment</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <span class="label label-default label-center">Two-Way Binding {{twoWayBindingNotation}}</span>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        Used for event handling
+      </div>
+      <div class="list-group-item">
+        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"> </span>
+        click the button to increment the value: {{counter}}
+      </div>
+      <div (click)="addToCounter()">
+        <button class="btn btn-primary btn-center">increment</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="panel-footer">
+      <a href="{{documentation}}">Documentation</a>
+  </div> -->
