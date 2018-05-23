@@ -19,6 +19,7 @@ var Ajax = /** @class */ (function () {
         });
         this.xhr.open(method, url);
         this.xhr.send();
+        // this.xhr.send(objectForBody);
     };
     return Ajax;
 }());

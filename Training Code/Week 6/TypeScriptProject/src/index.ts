@@ -2,34 +2,52 @@ import { Ajax } from "./ajax";
 import { SWCharacter } from "./swcharacter";
 
 function addCharacter(character: SWCharacter) {
-    var el = document.querySelector("#btnList");
-    if (el !== null) {
-        var newEl = document.createElement("li");
-        newEl.innerText = character.description();
-        el.appendChild(newEl);
+    var el = document.querySelector("#btnList") as HTMLOListElement;
+    var newEl = document.createElement("li") as HTMLLIElement;
+    newEl.innerText = character.description();
+    el.appendChild(newEl);
+}
+
+function updateResultsList(responseText: string) {
+    var searchList = document.querySelector("#searchList") as HTMLOListElement;
+    searchList.innerHTML = ""; // clear the list
+
+    var response = JSON.parse(responseText);
+    for (let i = 0; i < response.results.length; i++) {
+        var newEl = document.createElement("li") as HTMLLIElement;
+        var item = response.results[i];
+        var char = new SWCharacter(item.name, item.hair_color);
+        newEl.innerText = char.description();
+        searchList.appendChild(newEl);
     }
 }
 
 function main() {
     var ajax = new Ajax();
 
-    var btn = document.querySelector("#btn");
-    if (btn !== null) {
-        btn.addEventListener(
-            'click',
-            () => {
-                ajax.send(
-                    "https://swapi.co/api/people/1",
-                    "get",
-                    (text) => {
-                        var response = JSON.parse(text);
-                        var char: SWCharacter = new SWCharacter(response.name, response.hair_color);
-                        addCharacter(char);
-                    }
-                );
+    var btn = document.querySelector("#btn") as HTMLButtonElement;
+    btn.addEventListener('click', () => {
+        ajax.send(
+            "https://swapi.co/api/people/1",
+            "get",
+            (text) => {
+                var response = JSON.parse(text);
+                var char: SWCharacter = new SWCharacter(response.name, response.hair_color);
+                addCharacter(char);
             }
         );
-    }
+    });
+
+    var searchBtn = document.querySelector("#searchBtn") as HTMLButtonElement;
+    searchBtn.addEventListener('click', () => {
+        var searchTextField = document.querySelector("#searchText") as HTMLInputElement;
+        var searchText = searchTextField.value;
+        ajax.send(
+            "https://swapi.co/api/people/?search=" + searchText,
+            "get",
+            updateResultsList
+        );
+    });
 }
 
 main();
