@@ -1,0 +1,14 @@
+<input type="text" [(ngModel)]="searchText" />
+<button (click)="searchPokemon()">Search</button>
+
+<div *ngIf="pokemons">
+  <h3>Pokemons:</h3>
+  <ol>
+    <li *ngFor="let poke of pokemons">
+      {{poke.name}}, {{poke.height}}
+    </li>
+  </ol>
+</div>
+<div *ngIf="!pokemons">
+  <h4>No pokemon</h4>
+</div>
