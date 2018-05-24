@@ -1,8 +1,11 @@
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
-    imports: [],         // other modules this module needs something from
+    imports: [
+        BrowserModule
+    ],                   // other modules this module needs something from
     declarations: [
         AppComponent
     ],                   // all the components and other directives in this module
