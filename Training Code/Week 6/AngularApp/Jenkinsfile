@@ -12,7 +12,7 @@ node('master') {
         try {
             dir ('Training Code/Week 6/AngularApp') {
                 bat 'npm install'
-                bat 'ng build'
+                bat 'npm run build'
             }
         }
         catch (exc) {
@@ -34,7 +34,7 @@ node('master') {
     stage('test') {
         try {
             // dir('Training Code/Week 6/AngularApp') {
-            // 	bat 'ng test'
+            // 	bat 'npm test'
             // }
         }
         catch (exc) {
@@ -45,7 +45,7 @@ node('master') {
     stage('package') {
         try {
             dir('Training Code/Week 6/AngularApp') {
-                bat 'ng build --base-href /angularapp1/ --prod'
+                bat 'npm run build --base-href /angularapp1/ --prod'
                 bat 'copy /y web.config dist'
                 // // ng build inside jenkins workspace doesn't
                 // bat 'copy /y src\\favicon.ico dist'
