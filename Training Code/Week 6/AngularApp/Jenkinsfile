@@ -23,7 +23,7 @@ node('master') {
     stage('analyze') {
         try {
             dir('Training Code/Week 6/AngularApp') {
-                bat 'sonar-scanner.bat -Dsonar.projectKey=ao221662 -Dsonar.sources=.\\src -Dproject.settings=C:\\tools\\sonarqube\\sonarcloud.properties'
+                // bat 'sonar-scanner.bat -Dsonar.projectKey=ao221662 -Dsonar.sources=.\\src -Dproject.settings=C:\\tools\\sonarqube\\sonarcloud.properties'
             }
         }
         catch (exc) {
