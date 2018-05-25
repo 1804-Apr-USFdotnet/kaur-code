@@ -1,0 +1,76 @@
+node('master') {
+    stage('import') {
+        try {
+            git 'https://github.com/1804-Apr-USFdotnet/kaur-code.git'
+        }
+        catch (exc) {
+            slackError('import')
+            throw exc
+        }
+    }
+    stage('build') {
+        try {
+            dir ('Training Code/Week 6/AngularApp') {
+                bat 'npm install'
+                bat 'ng build'
+            }
+        }
+        catch (exc) {
+            slackError('build')
+            throw exc
+        }
+    }
+    stage('analyze') {
+        try {
+            dir('Training Code/Week 6/AngularApp') {
+                bat 'sonar-scanner.bat -Dsonar.projectKey=ao221662 -Dsonar.sources=.\\src -Dproject.settings=C:\\tools\\sonarqube\\sonarcloud.properties'
+            }
+        }
+        catch (exc) {
+            slackError('analyze')
+            throw exc
+        }
+    }
+    stage('test') {
+        try {
+            // dir('Training Code/Week 6/AngularApp') {
+            // 	bat 'ng test'
+            // }
+        }
+        catch (exc) {
+            slackError('test')
+            throw exc
+        }
+    }
+    stage('package') {
+        try {
+            dir('Training Code/Week 6/AngularApp') {
+                bat 'ng build --base-href /angularapp1/ --prod'
+                bat 'copy /y web.config dist'
+                // // ng build inside jenkins workspace doesn't
+                // bat 'copy /y src\\favicon.ico dist'
+                // bat 'md dist\\assets\\images'
+                // bat 'copy /y src\\assets\\images\\*.png dist\\assets\\images'
+            }
+        }
+        catch (exc) {
+            slackError('package')
+            throw exc
+        }
+    }
+    stage('deploy') {
+        try {
+            dir('Training Code/Week 6/AngularApp') {
+                bat "msdeploy -verb:sync -source:contentPath=\"%CD%\\dist\" -dest:contentPath=\"Default Web Site/angularapp1\",wmsvc=ec2-34-201-125-246.compute-1.amazonaws.com,userName=Administrator,password=\"${env.angular_deploy_password}\" -enableRule:AppOffline -allowUntrusted"
+            }
+        }
+        catch (exc) {
+            slackError('deploy')
+            throw exc
+        }
+    }
+}
+
+def slackError(stageName) {
+    slackSend color: 'danger', message: "FAILED ${stageName} stage: [<${JOB_URL}|${env.JOB_NAME}> <${env.BUILD_URL}console|${env.BUILD_DISPLAY_NAME}>] [${currentBuild.durationString.replace(' and counting', '')}]"
+}
