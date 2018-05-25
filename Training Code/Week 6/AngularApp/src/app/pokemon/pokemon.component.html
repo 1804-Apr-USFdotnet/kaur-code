@@ -5,7 +5,7 @@
   <h3>Pokemons:</h3>
   <ol>
     <li *ngFor="let poke of pokemons">
-      {{poke.name}}, {{poke.height}}
+      <a routerLink="/pokemondetail/{{poke.name}}">{{poke.name}}</a>
     </li>
   </ol>
 </div>

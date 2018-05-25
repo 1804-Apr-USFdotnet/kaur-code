@@ -8,6 +8,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
 
 // ng new AngularApp
 // cd AngularApp
@@ -21,7 +22,8 @@ import { FormsModule } from "@angular/forms";
   declarations: [
     AppComponent,
     NavigationBarComponent,
-    PokemonComponent
+    PokemonComponent,
+    PokemonDetailComponent
   ],
   imports: [
     BrowserModule,
