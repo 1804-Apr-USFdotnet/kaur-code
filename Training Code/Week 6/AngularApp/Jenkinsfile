@@ -61,7 +61,7 @@ node('master') {
     stage('deploy') {
         try {
             dir('Training Code/Week 6/AngularApp') {
-                bat "msdeploy -verb:sync -source:contentPath=\"%CD%\\dist\" -dest:contentPath=\"Default Web Site/angularapp1\",wmsvc=ec2-34-201-125-246.compute-1.amazonaws.com,userName=Administrator,password=\"${env.angular_deploy_password}\" -enableRule:AppOffline -allowUntrusted"
+                bat "msdeploy -verb:sync -source:contentPath=\"%CD%\\dist\" -dest:contentPath=\"Default Web Site/angularapp1\",wmsvc=ec2-52-70-230-124.compute-1.amazonaws.com,userName=Administrator,password=\"${env.angular_deploy_password}\" -enableRule:AppOffline -allowUntrusted"
             }
         }
         catch (exc) {
