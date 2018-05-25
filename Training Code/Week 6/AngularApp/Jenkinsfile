@@ -45,8 +45,9 @@ node('master') {
     stage('package') {
         try {
             dir('Training Code/Week 6/AngularApp') {
+                // winds up as: ng build --base-href /angularapp1/ --prod
                 bat 'npm run build -- --base-href /angularapp1/ --prod'
-                bat 'copy /y web.config dist'
+                // bat 'copy /y web.config dist'
                 // // ng build inside jenkins workspace doesn't
                 // bat 'copy /y src\\favicon.ico dist'
                 // bat 'md dist\\assets\\images'
