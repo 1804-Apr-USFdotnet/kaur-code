@@ -1,0 +1,10 @@
+# start with microsoft's asp.net core runtime image
+FROM microsoft/aspnetcore:2
+
+# "Change directory" in the container to here
+WORKDIR /app
+# copy everything from the package folder (relative to the Dockerfile's location) into the container
+COPY ./DockerizedMvc2/Package .
+
+# start the container by running "dotnet DockerizedMvc2.dll"
+ENTRYPOINT [ "dotnet", "DockerizedMvc2.dll"]
