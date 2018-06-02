@@ -9,7 +9,7 @@ COPY . .
 # package restore (looks at .csproj for nuget packages)
 RUN dotnet restore
 RUN dotnet build
-RUN dotnet test
+# RUN dotnet test
 # sonarqube
 RUN dotnet publish -o ./out
 

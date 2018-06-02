@@ -9,16 +9,16 @@ services:
       - net
     ports:
       - "9000:80"
-    environment:
+    # environment:
       # ApiServiceUrl: "http://api:4200"
   api:
     image: docker-api
-    # ports:
-    #   - "9001:4200"
+    ports:
+      - "9200:4200"
     networks:
       - net
     environment:
-      ASPNETCORE_URLS: "http://*:4200"
+      ASPNETCORE_URLS: "http://*:4200" # host api at port 4200 within the stack
 
 networks:
   net:

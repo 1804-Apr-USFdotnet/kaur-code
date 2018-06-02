@@ -1,6 +1,7 @@
 connections.config
 
-# Created by https://www.gitignore.io/api/node,macos,csharp,windows,visualstudio,visualstudiocode
+
+# Created by https://www.gitignore.io/api/node,macos,csharp,windows,visualstudio,visualstudiocode,vagrant
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -378,6 +379,10 @@ jspm_packages/
 # dotenv environment variables file
 .env
 
+### Vagrant ###
+.vagrant/
+*.box
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -546,4 +551,4 @@ $RECYCLE.BIN/
 # should be stored in the .pubxml.user file.
 
 
-# End of https://www.gitignore.io/api/node,macos,csharp,windows,visualstudio,visualstudiocode
+# End of https://www.gitignore.io/api/node,macos,csharp,windows,visualstudio,visualstudiocode,vagrant

@@ -9,10 +9,11 @@ COPY ./ .
 # package restore (looks at .csproj for nuget packages)
 RUN dotnet restore
 RUN dotnet build
-RUN dotnet test
+# RUN dotnet test
 # sonarqube
-RUN dotnet publish -o ./out
+RUN dotnet publish -o ./out/
 
 # start the container by running "dotnet DockerizedMvc2.dll"
 WORKDIR /app/out
 ENTRYPOINT [ "dotnet", "DockerizedMvc2.dll"]
+# CMD [ "dotnet", "run" ]

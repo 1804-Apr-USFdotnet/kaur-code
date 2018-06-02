@@ -13,15 +13,21 @@ namespace DockerizedMvc2.Controllers
     {
         private static HttpClient httpClient = new HttpClient();
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
-            var response = await httpClient.GetAsync("http://api:4200/api/value/1");
+            var response = await httpClient.GetAsync("http://api:4200/api/values/1");
             var contentString = await response.Content.ReadAsStringAsync();
 
+            Console.WriteLine("Call returned: " + contentString);
             ViewBag.Message = contentString;
 
             return View();
         }
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public IActionResult About()
         {
