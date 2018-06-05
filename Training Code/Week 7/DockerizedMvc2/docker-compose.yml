@@ -7,6 +7,12 @@ services:
     image: docker-mvc
     networks:
       - net
+    deploy:
+      replicas: 3
+      # restart-policy:
+      #   condition: on-failure
+      #   delay: 2s
+      #   max_attempts: 3
     ports:
       - "9000:80"
     # environment:

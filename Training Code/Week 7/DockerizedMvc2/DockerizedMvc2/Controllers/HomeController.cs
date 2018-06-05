@@ -21,6 +21,9 @@ namespace DockerizedMvc2.Controllers
             Console.WriteLine("Call returned: " + contentString);
             ViewBag.Message = contentString;
 
+            // object x = null;
+            // var y = x.ToString();
+
             return View();
         }
 
