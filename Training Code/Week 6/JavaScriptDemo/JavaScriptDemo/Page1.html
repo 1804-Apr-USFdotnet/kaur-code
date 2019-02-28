@@ -34,6 +34,17 @@
         //let allow = (age >= 18) ? alert("Welcome to the party") : alert("Not allowed");// ternary operator
         //Special Types : Object , Symbol
         //alert(typeof (Math));
+ // 6. OBJECT
+x = {}; // empty object
+x = {
+    name: 'Bill', // properties
+    age: 30
+};
+x.height = 120;
+x.height = '6 feet';
+// x = x.name; // access properties with dot (.)
+x = x['height']; // access properties with indexing ([])
+
      //TYPECONVERSION:
         //let info="      123456      ";//null //= true;        
        // info = "Pushpinder Kaur";
@@ -44,7 +55,16 @@
         //alert(Boolean(NaN));
         //falsy : null, 0, "", undefined, false, NaN 
         */
-// FUNCTIONS
+//7. FUNCTIONS
+// functions (still type object, even though typeof says different)
+// in JS, functions are first-class objects
+x = function(n) { return n; }
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^
+//   "function expression"
+x = x(x(x('abc')));
+x = function(f, x) { return f(x); }
+// x = typeof(x) === 'object'; // false, it's 'function'
+x = x(function(n) { return n.length; }, 'asdfasdf');
         /*
         //var userName = "Diana";// global variable
         (
@@ -87,6 +107,21 @@
         } 
        // alert(result);
      //  alert(output);
+        //DEFAULT PARAMETERES:
+        // ES6 allows default parameters like this with c
+// function add(a, b, c = 5) {
+function add(a, b, c) {
+    console.log(a, b, c);
+    // this is a breakpoint
+    debugger;
+    return a + b + c;
+}
+
+// if you don't pass enough parameters, it's undefined
+add(1, 2);
+// if you pass too many, they are ignored
+add(1, 2, 3, 4);
+        
         //CALLBACK FUNCTION
         function Aggreement(policyAcceptance, yes, no) {
             if (confirm(policyAcceptance))
@@ -113,6 +148,16 @@
         var funcCall = Outer();
         var funcInner = funcCall();
         alert(funcInner());
+        
+        
+        // we have arrays (object type)
+x = []; // empty array
+x = [1, 2, 3, 4, 5, 'abc', null];
+console.log(x);
+
+x.forEach(function(e) {
+    console.log(e);
+});
     </script>
 </body>
 </html>
